@@ -21,6 +21,23 @@
 
 ---
 
+## [1.0.0] - 2026-07-01
+
+API freeze. The public surface introduced in 0.2.0 — `Value`, `Unpacked`, the
+re-exported `Symbol`, the `serde` representation, and the `std` / `serde` feature
+flags — is now stable and frozen under Semantic Versioning. No functional changes
+from 0.2.0; this release records the stability promise.
+
+### Changed
+
+- Marked `docs/API.md` stable and documented the SemVer promise: the frozen surface
+  will not change in a breaking way within `1.x`; the `serde` form is part of the
+  contract; the NaN-box bit layout behind `Value::bits` remains an unpromised
+  implementation detail.
+- Bumped the version to `1.0.0`.
+
+---
+
 ## [0.2.0] - 2026-07-01
 
 The core runtime value representation. This release delivers the whole point of the
@@ -72,6 +89,7 @@ Initial scaffold and repository bootstrap. No domain logic yet &mdash; this rele
 - `.github/workflows/ci.yml` CI matrix; `deny.toml`, `clippy.toml`, `rustfmt.toml`.
 - `dev/DIRECTIVES.md` and `dev/ROADMAP.md` (committed engineering standards + plan).
 
-[Unreleased]: https://github.com/jamesgober/value-lang/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/jamesgober/value-lang/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/jamesgober/value-lang/compare/v0.2.0...v1.0.0
 [0.2.0]: https://github.com/jamesgober/value-lang/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/jamesgober/value-lang/releases/tag/v0.1.0

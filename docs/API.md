@@ -17,12 +17,14 @@
 Runtime value representation for interpreted languages, by NaN-boxing. The entire
 public surface is one value type, one view enum, and a re-exported symbol handle.
 
-- **Version:** 0.2.0
+- **Version:** 1.0.0
 - **MSRV:** Rust 1.85 (2024 edition)
 - **`no_std`:** yes (no `alloc` required)
+- **Stability:** stable — the surface below is frozen (see [Stability](#stability)).
 
 ## Table of Contents
 
+- **[Stability](#stability)**
 - **[Installation](#installation)**
 - **[Quick Start](#quick-start)**
 - **[Public API](#public-api)**
@@ -43,17 +45,39 @@ public surface is one value type, one view enum, and a re-exported symbol handle
 
 <br>
 
+## Stability
+
+As of **1.0.0** the public API documented here is **stable and frozen**. The crate
+follows [Semantic Versioning](https://semver.org):
+
+- Nothing in the frozen surface — the `Value` and `Unpacked` types, their methods and
+  trait implementations, the re-exported `Symbol`, the `serde` representation, and the
+  `std` / `serde` feature flags — will be removed or changed in a breaking way within
+  the `1.x` series. A breaking change means a new major version.
+- `1.x` releases may **add** to the surface (new methods, new trait impls, new
+  variants gated appropriately) without breaking existing code.
+- The **serialized form** of a `Value` under `serde` (an externally-tagged enum with
+  symbols as their raw id) is part of the contract and will not change within `1.x`.
+- The **NaN-box bit layout** behind [`bits`](#value-bits) is an implementation detail
+  and is deliberately *not* promised: treat `bits` as an opaque, self-consistent token
+  (stable within a build), not a wire format. Use `serde` for persistence.
+
+MSRV (Rust 1.85) is treated as a compatibility surface: a raise is a minor, documented
+change, never a patch.
+
+<br>
+
 ## Installation
 
 ```toml
 [dependencies]
-value-lang = "0.2"
+value-lang = "1"
 
 # Optional serde support:
-value-lang = { version = "0.2", features = ["serde"] }
+value-lang = { version = "1", features = ["serde"] }
 
 # no_std (drops the std forwarding to intern-lang):
-value-lang = { version = "0.2", default-features = false }
+value-lang = { version = "1", default-features = false }
 ```
 
 <br>
