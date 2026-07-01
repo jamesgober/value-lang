@@ -3,7 +3,7 @@
 # =============================================================================
 [package]
 name    = "value-lang"
-version = "0.1.0"
+version = "0.2.0"
 
 # Minimum Supported Rust Version (MSRV)
 rust-version = "1.85"
@@ -19,10 +19,10 @@ readme = "README.md"
 description = "Runtime value representation (tagged unions / NaN-boxing)."
 
 # Keywords (5 max)
-keywords = [language,runtime,value,interpreter]
+keywords = ["language", "runtime", "value", "interpreter", "nan-boxing"]
 
 # Categories
-categories = [development-tools,data-structures]
+categories = ["development-tools", "data-structures"]
 
 # Links
 homepage      = "https://github.com/jamesgober/value-lang"
@@ -45,22 +45,28 @@ path = "src/lib.rs"
 # #################################
 [features]
 default = ["std"]
-std = []
-# Serialization support.
+# Propagate `std` down to intern-lang; without it the crate is `no_std` (core only).
+std = ["intern-lang/std"]
+# Serialization support for `Value` via serde.
 serde = ["dep:serde"]
 
 
 # DEPENDENCIES
 # #################################
 [dependencies]
+# Symbol handles pack a 32-bit interned string id into the value tag. `NonZeroU32`
+# ids round-trip losslessly through the NaN-box payload. Pinned to the published 1.x.
+intern-lang = { version = "1", default-features = false }
 serde = { version = "1", optional = true, default-features = false, features = ["derive", "alloc"] }
 
 
 # DEV DEPENDENCIES
 # #################################
 [dev-dependencies]
-criterion = { version = "0.5", features = ["html_reports"] }
-proptest  = "1"
+criterion  = { version = "0.5", features = ["html_reports"] }
+proptest   = "1"
+# Exercises the `serde` feature end-to-end in the round-trip tests.
+serde_json = "1"
 
 [target.'cfg(loom)'.dev-dependencies]
 loom = "0.7"
