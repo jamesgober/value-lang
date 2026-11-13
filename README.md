@@ -18,7 +18,7 @@
 
 <div align="left">
     <p>
-        value-lang is the LXRT-tier crate: Compact runtime value representation: tagged unions and NaN-boxing for interpreted languages. Part of the -lang language-construction family; see _strategy/LANG_COLLECTION.md for the master plan.
+        value-lang is the LXRT-tier crate: Compact runtime value representation: tagged unions and NaN-boxing for interpreted languages. Part of the -lang language-construction family.
     </p>
     <br>
     <hr>
